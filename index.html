@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3615 EMPLOI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="screen">
+
+    <header class="statusbar">
+      <h1 class="wordmark">3615 EMPLOI<span class="cursor" aria-hidden="true"></span></h1>
+      <p class="tagline">Les offres France Travail du Bas-Rhin et du Haut-Rhin, relevées chaque matin, automatiquement.</p>
+    </header>
+
+    <section class="filters">
+      <div class="field">
+        <label for="keyword-input">Mot-clé</label>
+        <input type="text" id="keyword-input" placeholder="devops, cloud, réseau…">
+      </div>
+      <div class="field field-narrow">
+        <label for="departement-input">Département</label>
+        <input type="text" id="departement-input" placeholder="67">
+      </div>
+      <div class="field-actions">
+        <button id="filter-btn" class="key key-primary">ENVOI</button>
+        <button id="reset-btn" class="key">ANNULATION</button>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="job-list" class="job-list" aria-label="Liste des offres">
+      <!-- Rows rendered by script.js -->
+    </section>
+
+    <p id="empty-state" class="empty-state" hidden>— Aucune offre ne correspond à ces critères —</p>
+
+    <hr class="rule">
+
+    <section class="signup">
+      <h2 class="section-title">S'abonner aux alertes</h2>
+      <p class="section-desc">Entre tes critères une fois. Les nouvelles offres correspondantes arrivent par email chaque jour.</p>
+
+      <form id="signup-form">
+        <div class="field">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" placeholder="ton.email@exemple.com" required>
+        </div>
+        <div class="field">
+          <label for="signup-keywords">Mots-clés</label>
+          <input type="text" id="signup-keywords" placeholder="devops, cloud" required>
+        </div>
+        <div class="field field-narrow">
+          <label for="signup-departement">Départements</label>
+          <input type="text" id="signup-departement" placeholder="67, 68" required>
+        </div>
+        <div class="field-actions">
+          <button type="submit" class="key key-primary">ENVOI</button>
+        </div>
+      </form>
+      <p id="signup-feedback" class="signup-feedback" hidden></p>
+    </section>
+
+    <footer class="footer">
+      <p>Données publiques France Travail — projet personnel, non affilié.</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

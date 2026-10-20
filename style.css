@@ -1,0 +1,320 @@
+/* ==========================================================================
+   3615 EMPLOI — a job board styled after Minitel, the French pre-internet
+   terminal network France's employment agency actually ran a service on.
+   One accent (phosphor amber), one display face used once, everything
+   else is the character-grid monospace that *is* the concept.
+   ========================================================================== */
+
+:root {
+  --bg: #0a0908;
+  --panel: #120f0c;
+  --amber: #ffb300;
+  --amber-dim: #6b4f10;
+  --cyan: #2fe6d1;
+  --text: #d9d4c4;
+  --text-dim: #6b6456;
+  --rule: #332c20;
+
+  --font-display: "VT323", monospace;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Faint scanline texture — subtle, never fights legibility */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 1;
+}
+
+.screen {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- Header / wordmark ---------- */
+
+.statusbar {
+  margin-bottom: 1.8rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: var(--amber);
+  letter-spacing: 0.04em;
+  margin: 0 0 0.6rem;
+  line-height: 1;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1.6rem;
+  background: var(--amber);
+  margin-left: 0.15em;
+  transform: translateY(0.2rem);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; opacity: 1; }
+}
+
+.tagline {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  max-width: 46ch;
+  margin: 0;
+}
+
+/* ---------- Rules / dividers ---------- */
+
+.rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 1.6rem 0;
+}
+
+/* ---------- Form fields (shared by filters + signup) ---------- */
+
+.filters, #signup-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.2rem;
+  align-items: end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 200px;
+}
+
+.field-narrow {
+  flex: 0 1 120px;
+}
+
+.field label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.field input {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0;
+}
+
+.field input::placeholder {
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+.field input:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+
+.field-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ---------- Keys (buttons styled as real Minitel function keys) ---------- */
+
+.key {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.key:hover {
+  border-color: var(--text-dim);
+  color: var(--text);
+}
+
+.key:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+
+.key-primary {
+  color: var(--bg);
+  background: var(--amber);
+  border-color: var(--amber);
+  font-weight: 700;
+}
+
+.key-primary:hover {
+  background: #ffc433;
+  color: var(--bg);
+  border-color: #ffc433;
+}
+
+/* ---------- Job listing rows ---------- */
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.job-row {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0 0.8rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.job-row:first-child {
+  border-top: none;
+}
+
+.job-row .idx {
+  font-family: var(--font-mono);
+  color: var(--amber-dim);
+  font-size: 0.85rem;
+  padding-top: 0.15rem;
+}
+
+.job-row.unseen .idx {
+  color: var(--amber);
+}
+
+.job-row.seen {
+  opacity: 0.55;
+}
+
+.job-row h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.job-row .meta {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  margin: 0 0 0.7rem;
+  white-space: pre-wrap;
+}
+
+.job-row .meta .cyan {
+  color: var(--cyan);
+}
+
+a.apply-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--cyan);
+  text-decoration: none;
+  border: 1px solid var(--cyan);
+  padding: 0.35rem 0.7rem;
+}
+
+a.apply-link:hover {
+  background: var(--cyan);
+  color: var(--bg);
+}
+
+a.apply-link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.empty-state {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.85rem;
+}
+
+/* ---------- Signup section ---------- */
+
+.section-title {
+  font-size: 1.05rem;
+  color: var(--amber);
+  margin: 0 0 0.3rem;
+  font-weight: 600;
+}
+
+.section-desc {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 0 0 1.1rem;
+  max-width: 50ch;
+}
+
+.signup-feedback {
+  color: var(--cyan);
+  font-size: 0.82rem;
+  margin-top: 0.9rem;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  margin-top: 2.2rem;
+}
+
+.footer p {
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 480px) {
+  .wordmark { font-size: 2.2rem; }
+  .screen { padding-top: 1.8rem; }
+  .job-row { grid-template-columns: 1.6rem 1fr; }
+}
